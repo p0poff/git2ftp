@@ -34,13 +34,13 @@ class git:
 					l.append(lCur)
 					lCur = []
 			lCur.append(x)
+		if len(lCur)>0: l.append(lCur)
 		return l if len(l)>0 else None
 
 	def getCommits(self):
 		command = "git -C %s log -n 100 --name-status" % (self.path)
 		res = Popen(command, shell=True, stdin=PIPE, stdout=PIPE).stdout.read()
 		res = res.decode('utf-8').split('\n')
-		print(res)
 		try:
 			return [commit(x) for x in self.cut(res)]
 		except:
