@@ -1,6 +1,12 @@
 import ftplib
 import os
 
+def chdir(path):
+		os.chdir(path)
+
+def curdir():
+	return os.getcwd()
+
 class ftp:
 	def __init__(self, **args):
 		setting = args['setting']
@@ -109,7 +115,7 @@ class ftp:
 				filename = pieces[-1]
 				path += '/'+'/'.join(pieces[:-1])
 			print('upload file', path, filename)
-			os.chdir(path)
+			chdir(path)
 			fh = open(filename, 'rb')
 			self.ftp.storbinary('STOR %s' % (filename), fh)
 			fh.close()

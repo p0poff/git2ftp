@@ -6,8 +6,10 @@ class ui():
 	def __init__(self):
 		self.setting = setting.setting()
 		self.curFiles = []
+		self.curDir = ftp.curdir()
 
 	def saveSetting(self):
+		ftp.chdir(self.curDir)
 		gitPath =  			self.entryGitPath.get()
 		ftpUrl =  			self.entryFtpUrl.get()
 		ftpPort =  			self.entryFtpPort.get()
@@ -31,6 +33,10 @@ class ui():
 		self.git_listbox.delete(0, END)
 		if self.lCommits == None: return
 		for x in self.lCommits: self.git_listbox.insert(END, x.commit)
+
+	def reload(self):
+		self.lCommits = self.getCommits()
+		self.fillCommits()
 
 	def getFiles(self, event):
 		l = event.widget
@@ -147,7 +153,6 @@ class ui():
 		self.entryFtpFolderPath.insert(0, self.dataSetting['ftpFolder'])
 		self.activeMode.set(self.dataSetting['ftpActiveMode'])
 
-		self.lCommits = self.getCommits()
-		self.fillCommits()
+		self.reload()
 
 		root.mainloop()

@@ -38,7 +38,7 @@ class git:
 		return l if len(l)>0 else None
 
 	def getCommits(self):
-		command = "git -C %s log -n 100 --name-status" % (self.path)
+		command = "git -C %s log -n 100 --name-status --all" % (self.path)
 		res = Popen(command, shell=True, stdin=PIPE, stdout=PIPE).stdout.read()
 		res = res.decode('utf-8').split('\n')
 		try:
