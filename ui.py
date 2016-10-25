@@ -21,7 +21,7 @@ class ui():
 		self.lCommits = self.getCommits()
 
 	def createTitle(self, dataCommit):
-		return '%s %s' % (dataCommit.commit[6:15], dataCommit.comment[:50])
+		return '%s %s' % (dataCommit.commit[6:14], dataCommit.comment[:50])
 
 	def getCommits(self):
 		try:
@@ -33,12 +33,12 @@ class ui():
 		return lCommits
 
 	def fillCommits(self):
+		self.lCommits = self.getCommits()
 		self.git_listbox.delete(0, END)
 		if self.lCommits == None: return
 		for x in self.lCommits: self.git_listbox.insert(END, self.createTitle(x))
 
 	def reload(self):
-		self.lCommits = self.getCommits()
 		self.fillCommits()
 
 	def getFiles(self, event):
